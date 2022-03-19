@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 
 import Pad from './components/Pad';
+import Footer from './components/Footer';
 import AUDIO from './components/Audio';
 
 const keys = Object.keys(AUDIO); //Q, W, E...
@@ -13,8 +14,10 @@ function App() {
 	useEffect(() => {
 		function handleKeyPress(e) {
 			if (keyCodes.includes(e.keyCode)) {
-				let char = String.fromCharCode(e.keyCode);
-				document.getElementById(char).play();
+				let alphabet = String.fromCharCode(e.keyCode);
+				let alphabetAudioElement = document.getElementById(alphabet);
+				alphabetAudioElement.play();
+				setTrigger(alphabetAudioElement.parentElement.id);
 			}
 		};
 		document.addEventListener('keydown', handleKeyPress);
@@ -27,23 +30,28 @@ function App() {
 	}
 
 	return (
-		<main id="drum-machine">
-			<section id="display">
-				{trigger}
-			</section>
-			<section id="tap">
-				{keys.map(item => {
-					return <Pad
-						source={AUDIO[item][0]}
-						description={AUDIO[item][1]}
-						letter={item}
-						key={item}
-						handleClick={handleClick}
-					/>
-				})
-				}
-			</section>
-		</main>
+		<>
+			<main id="drum-machine">
+				<div className="drum-machine__wrapper">
+					<section id="display">
+						{trigger}
+					</section>
+					<section id="tap">
+						{keys.map(item => {
+							return <Pad
+								source={AUDIO[item][0]}
+								description={AUDIO[item][1]}
+								letter={item}
+								key={item}
+								handleClick={handleClick}
+							/>
+						})
+						}
+					</section>
+				</div>
+			</main>
+			<Footer />
+		</>
 	)
 }
 
