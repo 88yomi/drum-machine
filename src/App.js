@@ -12,26 +12,60 @@ function App() {
 	const [trigger, setTrigger] = useState('');
 
 	useEffect(() => {
-		function handleKeyPress(e) {
+		// to prevent the error of no DOM interaction before audio plays
+		document.querySelector('.clip').muted = true;
+
+		function handleKeyDown(e) {
 			if (keyCodes.includes(e.keyCode)) {
 				let alphabet = String.fromCharCode(e.keyCode);
 				let alphabetAudioElement = document.getElementById(alphabet);
+				alphabetAudioElement.currentTime = null;
 				alphabetAudioElement.play();
 				setTrigger(alphabetAudioElement.parentElement.id);
+
+				let buttonElement = document.getElementById(alphabet).parentElement;
+				buttonElement.classList.add('pressed');
 			}
 		};
-		document.addEventListener('keydown', handleKeyPress);
-		return () => document.removeEventListener(handleKeyPress);
+
+		function handleKeyUp(e) {
+			if (keyCodes.includes(e.keyCode)) {
+				let alphabet = String.fromCharCode(e.keyCode);
+				let buttonElement = document.getElementById(alphabet).parentElement;
+				buttonElement.classList.remove('pressed');
+			}
+		}
+
+		document.addEventListener('keydown', handleKeyDown);
+		document.addEventListener('keyup', handleKeyUp);
+		
+		return () => {
+			document.removeEventListener('keydown', handleKeyDown);
+			document.removeEventListener('keyup', handleKeyUp);
+		}
 	}, []);
 
-	const handleClick = e => {
-		setTrigger(e.target.id);
-		e.target.querySelector(".clip").play();
+	const handleContact = e => {
+		let button = e.target;
+		button.classList.add("pressed");
+		setTrigger(button.id);
+
+		button.querySelector(".clip").currentTime = null;
+		button.querySelector(".clip").muted = false;
+		button.querySelector(".clip").play();
+	}
+
+	const handleRemoveContact = (e) => {
+		// to prevent mouse events from firing
+		e.preventDefault();
+		let button = e.target;
+		button.classList.remove("pressed");
 	}
 
 	return (
 		<>
-			<main id="drum-machine">
+			<h1>Drum Machine</h1>
+			<section id="drum-machine">
 				<div className="drum-machine__wrapper">
 					<section id="display">
 						{trigger}
@@ -43,13 +77,14 @@ function App() {
 								description={AUDIO[item][1]}
 								letter={item}
 								key={item}
-								handleClick={handleClick}
+								contact={handleContact}
+								removeContact={handleRemoveContact}
 							/>
 						})
 						}
 					</section>
 				</div>
-			</main>
+			</section>
 			<Footer />
 		</>
 	)

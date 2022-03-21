@@ -1,57 +1,94 @@
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  font-family: 'Raleway', sans-serif;
 }
 
 body {
-	font-size: 16px;
+
   background-color: #090a09;
   color: #f1ffff;
 }
 
+h1 {
+  text-align: right;
+  margin: 1.5rem auto;
+  width: 20rem;
+  max-width: 90vw;
+
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
 #drum-machine {
-	border: 1px solid #fff;
-	height: 30rem;
-	width: 20rem;
-	max-width: 90vw;
-	max-height: 90vh;
-	margin: 5rem auto;
-	box-shadow: 0.8rem 0.8rem #f1f;
-	border-radius: 15px;
+  border: 1px solid #fff;
+  height: 30rem;
+  width: 20rem;
+  max-height: 90vh;
+  max-width: 90vw;
+  margin: 5rem auto;
+  box-shadow: 0.8rem 0.8rem #f1f;
+  border-radius: 15px;
 }
 
 #drum-machine .drum-machine__wrapper {
-	width: 70%;
-	margin: 0 auto;
-	height: calc(100% - 2rem);
+  width: 70%;
+  margin: 0 auto;
+  height: calc(100% - 2rem);
 }
 
 #drum-machine #display {
-	border: 1px solid #fff;
-	height: 20%;
-	padding: 0.5rem;
-	margin-top: 2rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-transform: uppercase;
+  border: 1px solid #fff;
+  height: 20%;
+  padding: 0.5rem;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-family: 'Hubballi', sans-serif;
+  font-size: 1.5rem;
 }
 
 #drum-machine #tap {
-	margin-top: 2rem;
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(3, 1fr);
-	gap: 10% 5%;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10% 5%;
 }
 
 #drum-machine #tap button {
-	height: 5rem;
-	width: 100%;
-	border: none;
-	border-radius: 0.7rem;
-	box-shadow: 0.1rem 0.3rem #f1f;
+  height: 5rem;
+  width: 100%;
+  border: none;
+  border-radius: 0.7rem;
+  box-shadow: 0.1rem 0.3rem #f1f;
+  font-size: 1.5rem;
+  background-color: #f1ffff;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#drum-machine #tap button.pressed {
+  box-shadow: 0.1rem 0.1rem #f1f;
+  transform: translateY(0.2rem);
+  background-color: rgba(241, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 1);
+  border-left: 1px solid #f1f;
+  border-top: 1px solid #f1f;
+}
+
+#drum-machine #tap button:focus {
+  outline: none;
 }
 
 footer {
@@ -65,5 +102,6 @@ footer {
   left: 0;
   height: 2.5rem;
   width: 100%;
-	text-align: center;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
 }
