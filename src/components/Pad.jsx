@@ -7,6 +7,8 @@ function Pad({ source, description, letter, contact, removeContact }) {
 			onMouseUp={removeContact}
 			onTouchStart={contact}
 			onTouchEnd={removeContact}
+			onTouchCancel={removeContact}
+			onMouseOut={removeContact}
 		>
 			{letter}
 			<audio

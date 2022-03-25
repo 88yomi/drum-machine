@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
-import './App.css';
+import './App.scss';
 
 import Pad from './components/Pad';
 import Footer from './components/Footer';
-import AUDIO from './components/Audio';
 
-const keys = Object.keys(AUDIO); //Q, W, E...
+import AUDIO from './components/Audio';
+import AUDIO2 from './components/Audio2';
+
+const keys = ["Q", "W", "E", "A", "S", "D", "Z", "X", "C"];
 const keyCodes = [81, 87, 69, 65, 83, 68, 90, 88, 67];
 
 function App() {
 	const [trigger, setTrigger] = useState('');
+	const [changePack, setChangePack] = useState(false);
 
 	useEffect(() => {
 		// to prevent the error of no DOM interaction before audio plays
@@ -38,7 +41,7 @@ function App() {
 
 		document.addEventListener('keydown', handleKeyDown);
 		document.addEventListener('keyup', handleKeyUp);
-		
+
 		return () => {
 			document.removeEventListener('keydown', handleKeyDown);
 			document.removeEventListener('keyup', handleKeyUp);
@@ -62,6 +65,20 @@ function App() {
 		button.classList.remove("pressed");
 	}
 
+	const handlePack = e => {
+		e.target.classList.toggle('first-pack')
+		setChangePack(!changePack);
+	}
+
+	// change source, description;
+	let AUDSRC;
+	if (!changePack) {
+		AUDSRC = AUDIO;
+	}
+	else {
+		AUDSRC = AUDIO2;
+	}
+
 	return (
 		<>
 			<h1>Drum Machine</h1>
@@ -73,8 +90,8 @@ function App() {
 					<section id="tap">
 						{keys.map(item => {
 							return <Pad
-								source={AUDIO[item][0]}
-								description={AUDIO[item][1]}
+								source={AUDSRC[item][0]}
+								description={AUDSRC[item][1]}
 								letter={item}
 								key={item}
 								contact={handleContact}
@@ -83,6 +100,9 @@ function App() {
 						})
 						}
 					</section>
+
+					<div id="change-pack" className="first-pack" onClick={handlePack} />
+					<div id="pack-text">PACK 1</div>
 				</div>
 			</section>
 			<Footer />
