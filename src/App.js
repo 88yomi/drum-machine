@@ -102,7 +102,7 @@ function App() {
 					</section>
 
 					<div id="change-pack" className="first-pack" onClick={handlePack} />
-					<div id="pack-text">PACK 1</div>
+					<div id="pack-text">Pack 1</div>
 				</div>
 			</section>
 			<Footer />
